@@ -1,0 +1,57 @@
+<!doctype html>
+<html>
+    <head>
+    <meta charset="utf-8"/>
+    <link rel="stylesheet" href="../static/css/jblog.css">
+    <title>Jiffies's Blog</title>
+    <script src="../static/js/jquery-2.1.3.min.js"></script>
+    <script src="../static/js/imagesloaded.pkgd.min.js"></script>
+    <script src="../static/js/masonry.pkgd.min.js"></script>
+    <script src="../static/js/jblog.js"></script>
+    </head>
+    <body>
+        <div id="sidebar">
+        <aside class="oi">
+            <div id="logo">
+                <img src="../static/img/LOGO3.png"> </img>
+            </div>
+            <h3 id="logo-sub">jiffies'Blog</h3>
+            <hr></hr>
+            <nav>
+                <ul>
+                    <li>HOME</li>
+                    <li>BLOG</li>
+                    <li>PHOTO</li>
+                    <li>ABOUT</li>
+                </ul>
+            </nav>
+            <hr></hr>
+            <div id="search-form">
+                <form>
+                    <input type="text" id="search-input">
+                </form>
+            </div>
+            <ul id="social-icons"></ul>
+
+        </aside>
+        </div>
+        {% block content %}
+        {% endblock %}
+        <footer id="footer">
+            <!--<div class="oi-footer">-->
+                <div id="fleft">
+                    <div class="f-oi">
+                        <p>ALL RIGHTS RESERVED 2015<p>
+                    </div>
+                </div>
+                <div id="fright">
+                    <div class="f-oi">
+                        <p>ALL RIGHTS RESERVED 2015<p>
+                    </div>
+                </div>
+
+
+            <!--</div>-->
+        </footer>
+    </body>
+</html>
