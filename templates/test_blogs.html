@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8' />
+    <title>Test Blogs</title>
+</head>
+
+<body>
+    <h1>All Blogs</h1>
+    {% for b in blogs %}
+    <h3>{{ b.title }}<h3>
+    <p>{{b.content}}</p>
+    {% endfor %}
+</body>
+</html>
+

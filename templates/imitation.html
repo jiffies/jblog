@@ -1,0 +1,291 @@
+<!doctype html>
+<html>
+    <head>
+    <script src="http://libs.baidu.com/jquery/1.9.1/jquery.min.js"></script>
+    <script src="../static/js/masonry.pkgd.min.js"></script>
+        <script>
+$(document).ready(function(){
+        alert("ready?");
+        var container = document.querySelector('#container');
+        var msnry = new Masonry( container, {
+              columnWidth: ".sub",
+                itemSelector: '.article'
+                });
+        $(".article").css('margin-left','4%');
+$(window).scroll(function(){
+    var scrollTop = $(this).scrollTop();
+    var scrollHeight = $(document).height();
+    var windowHeight = $(this).height();
+    if(scrollTop + windowHeight == scrollHeight){
+        $("#fright").css('display','block');
+    }
+    else{
+        $("#fright").css('display','none');
+    }
+});});
+        </script>
+        <style>
+            body,h1,h2,h3,h4,h5,ul,li,a,p,span,img,dd{margin:0;padding:0;list-style:none;text-decoration:none;border:none;outline:none;vertical-align:baseline;}
+h1, h2, h3, h4, h5, h6 {
+    font-weight: normal;
+    letter-spacing: -1px;
+    line-height: 1em;
+    padding-bottom: 5px;
+}
+            body{
+                color:#7A7575;
+            }
+            #sidebar{
+                position:fixed;
+                width:26%;
+                height:100%;
+                background-color:#459E63;
+            }
+            .oi{
+                padding:60px 30px 0px 30px;
+            
+            }
+            #container{
+                margin-left:26%;
+                width:74%;
+                background-color:#F5F1E4;
+                padding-top: 5%;
+            }
+#container:after{
+    content:".";
+    height:0;
+    visibility:hidden;
+    display:block;
+    clear:both;
+}
+            #footer{
+                position:fixed;
+                bottom:0;
+                height:6%;
+                width:auto;
+                left:0;
+                right:0;
+            }
+            #fleft{
+                float:left;
+                width:26%;
+                height:100%;
+                background:#235032;
+            }
+            #fright{
+                float:left;
+                width:74%;
+                display:none;
+                background:black;
+                height:100%
+            }
+
+            .oi-footer{
+                padding:5px;
+            }
+            #search-input{
+                background: none repeat scroll 0% 0% transparent;
+                border: medium none;
+            }
+            #search-form{
+                margin:30px 0 0 0;
+                background: url("https://lh6.googleusercontent.com/-XddNEOGCeQk/UEsSBq5Y6GI/AAAAAAAADlU/ykXt8G9jU4M/s191/search-bg.png") repeat-x scroll 0% 0% transparent;
+            }
+            nav li{
+                color: #FFF;
+font: 1.25em "Oswald","sans-serif",Arial,Verdana;
+transition: border-color 0.2s linear 0s;
+<!--padding: 0px 15px 0px 25px;-->
+margin:10px,0;
+margin-bottom: 10px;
+text-transform: uppercase;
+            }
+            h3#logo-sub{
+color: #F9EFB7;
+font-size: 1.1em;
+line-height: 140%;
+margin: 10px 0px 10px 0px;
+text-transform: uppercase;
+font-family: sans-serif;
+text-align:center;
+            
+            }
+            nav{
+                margin:30px 0px;
+            }
+#sidebar hr, #main hr {
+    border-style: solid;
+    border-color: #FFF;
+    -moz-border-top-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    border-image: none;
+    border-width: 1px 0px 0px;
+    margin: 0px;
+    padding: 0px;
+    opacity: 0.15;
+}
+        #logo img{
+            width:100%;
+            margin:0 auto;
+            display:block;
+        }
+        .article{
+            float:left;
+            position:relative;
+        }
+        .main{
+            width:60%;
+        }
+        .main img{
+            width:100%;
+        }
+        .sub{
+            width:30%;
+        }
+        .oi-sub{
+            margin-left:25px;
+            background:white;
+            position:relative;
+            margin-bottom:25px;
+        }
+        .sub img{
+            width:100%;
+        }
+        .article p{
+            padding:5%;
+        }
+        .tag{
+            background:#459E63;
+            position:absolute;
+            right:0;
+            top:0;
+            width:40%;
+        }
+        .tag p{
+            font-size: 16px;
+            color: #FFF;
+            text-decoration: none;
+            text-transform: uppercase;
+            font-family: "Oswald",Arial;
+            text-align: center;
+        }
+        </style>
+    </head>
+    <body>
+        <div id="sidebar">
+        <aside class="oi">
+            <div id="logo">
+                <img src="../static/img/LOGO3.png"> </img>
+            </div>
+            <h3 id="logo-sub">jiffies'Blog</h3>
+            <hr></hr>
+            <nav>
+                <ul>
+                    <li>HOME</li>
+                    <li>BLOG</li>
+                    <li>PHOTO</li>
+                    <li>ABOUT</li>
+                </ul>
+            </nav>
+            <hr></hr>
+            <div id="search-form">
+                <form>
+                    <input type="text" id="search-input">
+                </form>
+            </div>
+            <ul id="social-icons"></ul>
+
+        </aside>
+        </div>
+        <div id="container">
+            <div class="main article">
+                <div class="oi-sub">
+                <div class="tag">
+                    <p>BUSINESS</p>
+                </div>
+                <img src="../static/img/1.png"></img>
+                <p>A STANDART POST WITH IMAGE ALIGNED RIGHT
+
+                Posted by Rina Chaudhary
+                10
+
+                A STANDART POST WITH IMAGE ALIGNED RIGHTPosted by Rina Chaudhary 10 Nunc tincidunt, elit non cursus euismod, lacus augue ornare metus, egestas imperdiet nulla nisl quis mauris. Suspendisse a pharetra urna. Morbi dui lectus, pharetra nec elementum eget, vulputate...</p>
+                </div>
+            </div>
+            <div class="sub article">
+                <div class="oi-sub">
+                <div class="tag">
+                    <p>BUSINESS</p>
+                </div>
+                <img src="../static/img/2.jpg"></img>
+                <p>A NORMAL ARTICLE POST WHITE THUMBNAIL
+
+                Posted by Rina Chaudhary
+                2
+
+                A NORMAL ARTICLE POST WHITE THUMBNAILPosted by Rina Chaudhary 2 Nunc tincidunt, elit non cursus euismod, lacus augue ornare metus, egestas imperdiet nulla nisl quis mauris. Suspendisse a pharetra urna. Morbi dui lectus, pharetra nec elementum eget, vulputate ut...</p>
+                </div>
+            </div>
+            <div class="sub article">
+                <div class="oi-sub">
+                <div class="tag">
+                    <p>BUSINESS</p>
+                </div>
+                <img src="../static/img/3.jpg"></img>
+                <p>This is Just Going To Be Another Test Post
+
+                Posted by Rina Chaudhary
+                0
+
+                This is Just Going To Be Another Test PostPosted by Rina Chaudhary 0 Nunc tincidunt, elit non cursus euismod, lacus augue ornare metus, egestas imperdiet nulla nisl quis mauris. Suspendisse a </p>
+                </div>
+            </div>
+            <div class="sub article">
+                <div class="oi-sub">
+                <div class="tag">
+                    <p>BUSINESS</p>
+                </div>
+                <img src="../static/img/4.jpg"></img>
+                <p> Vivamus gravida vehicula arcu
+
+                Posted by Rina Chaudhary
+                0
+
+                Vivamus gravida vehicula arcuPosted by Rina Chaudhary 0Nunc tincidunt, elit non cursus euismod, lacus augue ornare metus, egestas imperdiet nulla </p>
+                </div>
+            </div>
+            <div class="sub article">
+                <div class="oi-sub">
+                <div class="tag">
+                    <p>BUSINESS</p>
+                </div>
+                <img src="../static/img/5.jpg"></img>
+                <p>Nullam ut magna non lacus adipiscing
+
+                Posted by Rina Chaudhary
+                0
+
+                Nullam ut magna non lacus adipiscingPosted by Rina Chaudhary 0Nunc tincidunt, elit non cursus euismod, lacus augue ornare metus, </p>
+                </div>
+            </div>
+        </div>
+        <footer id="footer">
+            <!--<div class="oi-footer">-->
+                <div id="fleft">
+                    <div class="f-oi">
+                        <p>ALL RIGHTS RESERVED 2015<p>
+                    </div>
+                </div>
+                <div id="fright">
+                    <div class="f-oi">
+                        <p>ALL RIGHTS RESERVED 2015<p>
+                    </div>
+                </div>
+
+
+            <!--</div>-->
+        </footer>
+    </body>
+</html>
