@@ -7,7 +7,7 @@
                     <p>BUSINESS</p>
                 </div>
                 <img src="../static/img/1.png"></img>
-                <p>{{main.content}}</p>
+                <p class="content">{{main.content}}</p>
                 </div>
             </div>
             {% for blog in sub %}
@@ -17,7 +17,7 @@
                     <p>BUSINESS</p>
                 </div>
                 <img src="../static/img/{{loop.index+1}}.jpg"></img>
-                <p>{{blog.content}}</p>
+                <p class="content">{{blog.content}}</p>
                 </div>
             </div>
             {% endfor %}

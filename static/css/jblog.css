@@ -126,9 +126,6 @@ text-align:center;
         .sub img{
             width:100%;
         }
-        .article p{
-            padding:5%;
-        }
         .tag{
             background:#459E63;
             position:absolute;
@@ -143,5 +140,9 @@ text-align:center;
             text-transform: uppercase;
             font-family: "Oswald",Arial;
             text-align: center;
+            padding:5%;
+        }
+        .content{
+            padding:15px;
         }
 
