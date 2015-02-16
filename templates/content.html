@@ -7,69 +7,19 @@
                     <p>BUSINESS</p>
                 </div>
                 <img src="../static/img/1.png"></img>
-                <p>A STANDART POST WITH IMAGE ALIGNED RIGHT
-
-                Posted by Rina Chaudhary
-                10
-
-                A STANDART POST WITH IMAGE ALIGNED RIGHTPosted by Rina Chaudhary 10 Nunc tincidunt, elit non cursus euismod, lacus augue ornare metus, egestas imperdiet nulla nisl quis mauris. Suspendisse a pharetra urna. Morbi dui lectus, pharetra nec elementum eget, vulputate...</p>
+                <p>{{main.content}}</p>
                 </div>
             </div>
+            {% for blog in sub %}
             <div class="sub article">
                 <div class="oi-sub">
                 <div class="tag">
                     <p>BUSINESS</p>
                 </div>
-                <img src="../static/img/2.jpg"></img>
-                <p>A NORMAL ARTICLE POST WHITE THUMBNAIL
-
-                Posted by Rina Chaudhary
-                2
-
-                A NORMAL ARTICLE POST WHITE THUMBNAILPosted by Rina Chaudhary 2 Nunc tincidunt, elit non cursus euismod, lacus augue ornare metus, egestas imperdiet nulla nisl quis mauris. Suspendisse a pharetra urna. Morbi dui lectus, pharetra nec elementum eget, vulputate ut...</p>
+                <img src="../static/img/{{loop.index+1}}.jpg"></img>
+                <p>{{blog.content}}</p>
                 </div>
             </div>
-            <div class="sub article">
-                <div class="oi-sub">
-                <div class="tag">
-                    <p>BUSINESS</p>
-                </div>
-                <img src="../static/img/3.jpg"></img>
-                <p>This is Just Going To Be Another Test Post
-
-                Posted by Rina Chaudhary
-                0
-
-                This is Just Going To Be Another Test PostPosted by Rina Chaudhary 0 Nunc tincidunt, elit non cursus euismod, lacus augue ornare metus, egestas imperdiet nulla nisl quis mauris. Suspendisse a </p>
-                </div>
-            </div>
-            <div class="sub article">
-                <div class="oi-sub">
-                <div class="tag">
-                    <p>BUSINESS</p>
-                </div>
-                <img src="../static/img/4.jpg"></img>
-                <p> Vivamus gravida vehicula arcu
-
-                Posted by Rina Chaudhary
-                0
-
-                Vivamus gravida vehicula arcuPosted by Rina Chaudhary 0Nunc tincidunt, elit non cursus euismod, lacus augue ornare metus, egestas imperdiet nulla </p>
-                </div>
-            </div>
-            <div class="sub article">
-                <div class="oi-sub">
-                <div class="tag">
-                    <p>BUSINESS</p>
-                </div>
-                <img src="../static/img/5.jpg"></img>
-                <p>Nullam ut magna non lacus adipiscing
-
-                Posted by Rina Chaudhary
-                0
-
-                Nullam ut magna non lacus adipiscingPosted by Rina Chaudhary 0Nunc tincidunt, elit non cursus euismod, lacus augue ornare metus, </p>
-                </div>
-            </div>
+            {% endfor %}
         </div>
 {% endblock %}
