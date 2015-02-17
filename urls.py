@@ -13,3 +13,7 @@ def all_blogs():
     sub = blogs[1:]
     return dict(main=main,sub=sub)
 
+@view('signin.html')
+@get('/signin')
+def signin():
+    return dict()

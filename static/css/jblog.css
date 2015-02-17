@@ -105,7 +105,6 @@ text-align:center;
             display:block;
         }
         .article{
-            float:left;
             position:relative;
         }
         .main{
@@ -144,5 +143,20 @@ text-align:center;
         }
         .content{
             padding:15px;
+        }
+        #manage{
+            position:absolute;
+            top:0;
+            right:0;
+            background:#2C6D7F;
+            color:white;
+            padding: 10px 15px;
+        }
+        #manage a{
+            color: white;
+        }
+        #back{
+            background:#F5F1E4;
+            height:100%;
         }
 
