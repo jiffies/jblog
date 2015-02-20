@@ -37,6 +37,14 @@
         </div>
         {% block content %}
         {% endblock %}
+
+        <div id="manage">
+            {% if user %}
+            <p><a href="/signout">Logout</a></p>
+            {% else %}
+            <p><a href="/signin">Login</a></p>
+            {% endif %}
+        </div>
         <footer id="footer">
             <!--<div class="oi-footer">-->
                 <div id="fleft">

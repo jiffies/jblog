@@ -158,5 +158,9 @@ text-align:center;
         #back{
             background:#F5F1E4;
             height:100%;
+            position: absolute;
+            left: 26%;
+            width: auto;
+            right: 0;
         }
 

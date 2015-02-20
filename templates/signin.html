@@ -1,9 +1,12 @@
 {% extends 'base.html' %}
 {% block content %}
     <div id="back">
-        <form id="signin">
-            <input type="text" name="username"/>
+        <form id="signin" method="post" action="/api/authenticate?next=/signin">
+            <label for="username">用户名</label>
+                <input type="text" name="email"/><br/>
+            <label for="password">密码</label>
             <input type="password" name="password"/>
+            <button type="submit">登陆</button>
         </form>
     </div>
 {% endblock %}

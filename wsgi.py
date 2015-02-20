@@ -15,6 +15,7 @@ template_engine = Jinja2TemplateEngine(os.path.join(os.path.dirname(os.path.absp
 wsgi.template_engine = template_engine
 
 import urls
+wsgi.add_interceptor(urls.user_interceptor)
 wsgi.add_module(urls)
 
 if __name__=='__main__':

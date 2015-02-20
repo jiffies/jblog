@@ -1,9 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
         <div id="container">
-            <div id="manage">
-                <p><a href="#">Login</a></p>
-            </div>
             <div class="main article">
                 <div class="oi-sub">
                 <div class="tag">
@@ -19,7 +16,7 @@
                 <div class="tag">
                     <p>BUSINESS</p>
                 </div>
-                <img src="../static/img/{{loop.index+1}}.jpg"></img>
+                <img src="../{{blog.image}}"></img>
                 <p class="content">{{blog.content}}</p>
                 </div>
             </div>

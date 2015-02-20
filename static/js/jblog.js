@@ -19,6 +19,12 @@ $("#container").imagesLoaded().always(function(){
                     itemSelector: '.article'
                     });
             $(".article").css('margin-left','4%');
+        var documentHeight = $(document).height();
+        var windowHeight = $(window).height();
+        console.log(documentHeight,windowHeight);
+        if (documentHeight==windowHeight){
+            $("#fright").css('display','block');
+        }
 });
 });
 
