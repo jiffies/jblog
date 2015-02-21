@@ -13,16 +13,16 @@
         <div id="sidebar">
         <aside class="oi">
             <div id="logo">
-                <img src="../static/img/LOGO3.png"> </img>
+                <a href="/"><img src="../static/img/LOGO3.png"> </img></a>
             </div>
             <h3 id="logo-sub">jiffies'Blog</h3>
             <hr></hr>
             <nav>
                 <ul>
-                    <li>HOME</li>
-                    <li>BLOG</li>
-                    <li>PHOTO</li>
-                    <li>ABOUT</li>
+                    <li><a href="/">主页</a></li>
+                    <li><a href="/">博客</a></a></li>
+                    <li><a href="/">照片</a></li>
+                    <li><a href="/">关于</a></li>
                 </ul>
             </nav>
             <hr></hr>
@@ -39,11 +39,16 @@
         {% endblock %}
 
         <div id="manage">
+            <ul>
+                <li>
             {% if user %}
             <p><a href="/signout">Logout</a></p>
             {% else %}
             <p><a href="/signin">Login</a></p>
             {% endif %}
+            </li>
+                <li><p><a href="/add_blog">Manage</a></p></li>
+            </ul>
         </div>
         <footer id="footer">
             <!--<div class="oi-footer">-->

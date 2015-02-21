@@ -1,5 +1,4 @@
 $(document).ready(function(){
-        alert("ready?");
 $(window).scroll(function(){
     var scrollTop = $(this).scrollTop();
     var scrollHeight = $(document).height();

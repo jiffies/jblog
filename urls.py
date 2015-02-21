@@ -33,7 +33,7 @@ def make_signed_cookie(id, password, max_age):
     expires = str(int(time.time() + (max_age or 86400)))
     L = [id, expires, hashlib.md5('%s-%s-%s-%s' % (id, password, expires, _COOKIE_KEY)).hexdigest()]
     return '-'.join(L)
-@api
+#@api
 @post('/api/authenticate')
 def authenticate():
     i = ctx.request.input(remember='')
@@ -50,6 +50,7 @@ def authenticate():
     cookie = make_signed_cookie(user.id, user.password, max_age)
     ctx.response.set_cookie(_COOKIE_NAME, cookie, max_age=max_age)
     user.password = '******'
+    raise seeother('/')
     return user
 
 
@@ -97,7 +98,7 @@ def check_admin():
     raise APIPermissionError('No permission.')
 
 
-@api
+#@api
 @post('/api/blogs')
 def api_create_blog():
     check_admin()
@@ -123,6 +124,7 @@ def api_create_blog():
     user = ctx.request.user
     blog = Blog(user_id=user.id,  title=title,  content=content,image=filename)
     blog.insert()
+    raise seeother('/')
     return blog
 
 @view("add_blog.html")
