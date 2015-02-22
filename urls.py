@@ -128,9 +128,16 @@ def api_create_blog():
     return blog
 
 @view("add_blog.html")
-@get('/add_blog')
+@get('/manage/add_blog')
 def add_blog():
     user = ctx.request.user
     return dict(user=user)
 
+
+@interceptor('/manage/')
+def manage_interceptor(next):
+    user = ctx.request.user
+    if user and user.admin:
+        return next()
+    raise seeother('/signin')
 

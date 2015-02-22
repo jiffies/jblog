@@ -31,6 +31,11 @@ h1, h2, h3, h4, h5, h6 {
     display:block;
     clear:both;
 }
+#container-inner{
+    margin-left:auto;
+    margin-right:auto;
+    width:90%;
+}
             #footer{
                 position:fixed;
                 bottom:0;
@@ -108,22 +113,24 @@ text-align:center;
             position:relative;
         }
         .main{
-            width:60%;
+            width:66.67%;
         }
         .main img{
             width:100%;
         }
         .sub{
-            width:30%;
+            width:33.33%;
         }
         .oi-sub{
-            margin-left:25px;
+            margin-left:13px;
+            margin-right:13px;
             background:white;
             position:relative;
             margin-bottom:25px;
         }
         .sub img{
             width:100%;
+            border-bottom: 1px solid #F5F1E4;
         }
         .tag{
             background:#459E63;

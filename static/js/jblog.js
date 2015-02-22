@@ -12,12 +12,12 @@ $(window).scroll(function(){
 });
 
 $("#container").imagesLoaded().always(function(){
-            var container = document.querySelector('#container');
+            var container = document.querySelector('#container-inner');
             var msnry = new Masonry( container, {
                   columnWidth: ".sub",
                     itemSelector: '.article'
                     });
-            $(".article").css('margin-left','4%');
+            //$(".article").css('margin-left','4%');
         var documentHeight = $(document).height();
         var windowHeight = $(window).height();
         console.log(documentHeight,windowHeight);
