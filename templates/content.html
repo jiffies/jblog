@@ -1,14 +1,15 @@
 {% extends "base.html" %}
 {% block content %}
-        <div id="container">
             <div id="container-inner">
             <div class="main article">
                 <div class="oi-sub">
                 <div class="tag">
                     <p>BUSINESS</p>
                 </div>
-                <img src="../static/img/1.png"></img>
-                <p class="content">{{main.content}}</p>
+                <a href="/blog/{{main.id}}">
+                <img src="{{main.image}}"></img>
+                </a>
+                <div class="content">{{main.content | safe}}</div>
                 </div>
             </div>
             {% for blog in sub %}
@@ -17,11 +18,12 @@
                 <div class="tag">
                     <p>BUSINESS</p>
                 </div>
-                <img src="../{{blog.image}}"></img>
-                <p class="content">{{blog.content}}</p>
+                <a href="/blog/{{blog.id}}">
+                <img src="{{blog.image}}"></img>
+                </a>
+                <div class="content">{{blog.content | safe}}</div>
                 </div>
             </div>
             {% endfor %}
             </div>
-        </div>
 {% endblock %}

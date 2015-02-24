@@ -556,6 +556,7 @@ class Route(object):
 def _static_file_generator(fpath):
     BLOCK_SIZE = 8192
     with open(fpath, 'rb') as f:
+        print '@@@@@@@@@',fpath
         block = f.read(BLOCK_SIZE)
         while block:
             yield block
@@ -569,7 +570,7 @@ class StaticFileRoute(object):
         self.route = re.compile('^/static/(.+)$')
 
     def match(self, url):
-        if url.startswith('/static/') or url.startswith('/upload/'):
+        if url.startswith('/static/') or url.startswith('/upload/') or url.startswith('/s/'):
             return (url[1:], )
         return None
 

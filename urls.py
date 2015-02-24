@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 #-*- coding: utf-8 -*-
+import config
 import hashlib,uuid
 from framework.db import with_connection
 from models import User,Blog
@@ -8,16 +9,24 @@ from framework.apis import api, Page, APIError, APIValueError, APIPermissionErro
 import os.path
 import os, re, time, base64, hashlib, logging
 from config import configs
+import sae.storage
+import markdown2
 _COOKIE_NAME = 'jblog'
 _COOKIE_KEY = configs.session.secret
 CHUNKSIZE = 8192
 UPLOAD_PATH='upload'
+SAE_BUCKET = 'code4awesome'
 @view('content.html')
 @get('/')
 def all_blogs():
     blogs = Blog.find_all()
+    for blog in blogs:
+        blog.content = markdown2.markdown(blog.content)
     main = blogs[0]
     sub = blogs[1:]
+    #if not config.SAE:
+        #for blog in sub:
+            #os.path.join('..',blog.image)
     user = ctx.request.user
     return dict(main=main,sub=sub,user=user)
 
@@ -97,7 +106,9 @@ def check_admin():
         return
     raise APIPermissionError('No permission.')
 
-
+from sae.ext.storage import monkey
+monkey.patch_all() 
+#模拟文件系统，/s/bucket_name/object/name
 #@api
 @post('/api/blogs')
 def api_create_blog():
@@ -115,11 +126,18 @@ def api_create_blog():
     if not content:
         raise APIValueError('content', 'content cannot be empty.')
     filename = os.path.join(UPLOAD_PATH,hashlib.md5(image.filename.encode('utf-8')).hexdigest()+uuid.uuid4().hex)
-    with open(filename,'w') as f:
-        chunk = image.file.read(CHUNKSIZE)
-        while chunk:
-            f.write(chunk)
+    if 'SERVER_SOFTWARE' in os.environ:
+       conn = sae.storage.Connection() 
+       bucket = conn.get_bucket(SAE_BUCKET)
+       bucket.put_object(filename,image.file)
+       filename = bucket.generate_url(filename)
+       logging.info(filename)
+    else:
+        with open(filename,'w') as f:
             chunk = image.file.read(CHUNKSIZE)
+            while chunk:
+                f.write(chunk)
+                chunk = image.file.read(CHUNKSIZE)
 
     user = ctx.request.user
     blog = Blog(user_id=user.id,  title=title,  content=content,image=filename)
@@ -141,3 +159,11 @@ def manage_interceptor(next):
         return next()
     raise seeother('/signin')
 
+@view("blog.html")
+@get('/blog/:id')
+def blog(id):
+    blog = Blog.get(id)
+    blog.content = markdown2.markdown(blog.content)
+    if blog:
+        return dict(blog=blog)
+    raise notfound()

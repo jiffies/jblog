@@ -4,10 +4,12 @@
 '''
 Configuration
 '''
-DEBUG = True
+#DEBUG = False
+#SAE = True
 __author__ = 'Michael Liao'
 
 import config_default
+import os
 
 class Dict(dict):
     '''
@@ -47,7 +49,7 @@ def toDict(d):
 
 configs = config_default.configs
 
-if not DEBUG:
+if 'SERVER_SOFTWARE' in os.environ:
     try:
         import config_override
         configs = merge(configs, config_override.configs)
