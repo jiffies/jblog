@@ -164,6 +164,8 @@ def manage_interceptor(next):
 def blog(id):
     blog = Blog.get(id)
     blog.content = markdown2.markdown(blog.content)
+    if 'SERVER_SOFTWARE' not in os.environ:
+        blog.image = '/'+blog.image
     if blog:
         return dict(blog=blog)
     raise notfound()
