@@ -10,6 +10,18 @@ $(document).ready(function(){
         //$("#fright").css('display','none');
     //}
 //});
+    $(".a_post").click(function(e){
+        e.preventDefault();
+        $.ajax({
+            url:$(this).attr('href'),
+            type:'POST',
+            success:function(data,textstatus,jqXHR){
+                window.location.href = data;
+                window.location,reload();
+            },
+            dataType:'text'
+        });
+    });
     var fleftHeight = $('#fleft').height();
     $('#fright').css('height',fleftHeight);
     $('.footer-text').css('line-height',fleftHeight.toString()+'px');

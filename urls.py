@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 #-*- coding: utf-8 -*-
+from urlparse import urlparse
 import config
 import hashlib,uuid
 from framework.db import with_connection
@@ -106,10 +107,33 @@ def check_admin():
         return
     raise APIPermissionError('No permission.')
 
-from sae.ext.storage import monkey
-monkey.patch_all() 
-#模拟文件系统，/s/bucket_name/object/name
-#@api
+def upload(image):
+    filename = os.path.join(UPLOAD_PATH,hashlib.md5(image.filename.encode('utf-8')).hexdigest()+uuid.uuid4().hex)
+    if 'SERVER_SOFTWARE' in os.environ:
+       conn = sae.storage.Connection() 
+       bucket = conn.get_bucket(SAE_BUCKET)
+       bucket.put_object(filename,image.file)
+       filename = bucket.generate_url(filename)
+       logging.info(filename)
+    else:
+        with open(filename,'w') as f:
+            chunk = image.file.read(CHUNKSIZE)
+            while chunk:
+                f.write(chunk)
+                chunk = image.file.read(CHUNKSIZE)
+    return filename
+
+def delete_upload(filename):
+    if 'SERVER_SOFTWARE' in os.environ:
+       conn = sae.storage.Connection() 
+       bucket = conn.get_bucket(SAE_BUCKET)
+       filename = urlparse(filename).path[1:]
+       bucket.delete_object(filename)
+    else:
+        if os.path.isfile(filename):
+            os.remove(filename)
+    logging.info("remove file %s." % filename)
+
 @post('/api/blogs')
 def api_create_blog():
     check_admin()
@@ -125,20 +149,7 @@ def api_create_blog():
         #raise APIValueError('summary', 'summary cannot be empty.')
     if not content:
         raise APIValueError('content', 'content cannot be empty.')
-    filename = os.path.join(UPLOAD_PATH,hashlib.md5(image.filename.encode('utf-8')).hexdigest()+uuid.uuid4().hex)
-    if 'SERVER_SOFTWARE' in os.environ:
-       conn = sae.storage.Connection() 
-       bucket = conn.get_bucket(SAE_BUCKET)
-       bucket.put_object(filename,image.file)
-       filename = bucket.generate_url(filename)
-       logging.info(filename)
-    else:
-        with open(filename,'w') as f:
-            chunk = image.file.read(CHUNKSIZE)
-            while chunk:
-                f.write(chunk)
-                chunk = image.file.read(CHUNKSIZE)
-
+    filename = upload(image)
     user = ctx.request.user
     blog = Blog(user_id=user.id,  title=title,  content=content,image=filename)
     blog.insert()
@@ -167,5 +178,47 @@ def blog(id):
     if 'SERVER_SOFTWARE' not in os.environ:
         blog.image = '/'+blog.image
     if blog:
-        return dict(blog=blog)
+        return dict(blog=blog,user=ctx.request.user)
     raise notfound()
+
+@view("edit_blog.html")
+@get('/manage/edit/:id')
+def edit_blog(id):
+    blog = Blog.get(id)
+    if not blog:
+        raise notfound()
+    return dict(blog=blog,user=ctx.request.user)
+
+@post('/manage/edit/:id')
+def api_edit_blog(id):
+    check_admin()
+    i = ctx.request.input()
+    logging.info(i)
+    title = i.title.strip()
+    content = i.content.strip()
+    image = i.image
+    if not title:
+        raise APIValueError('name', 'name cannot be empty.')
+    if not content:
+        raise APIValueError('content', 'content cannot be empty.')
+    blog = Blog.get(id)
+    if not blog:
+        raise notfound()
+    blog.title = title
+    blog.content = content
+    if image:
+        delete_upload(blog.image)
+        filename = upload(image)
+        blog.image = filename
+    blog.update()
+    raise seeother('/blog/%s' % blog.id)
+
+@post('/manage/delete/:id')
+def delete_blog(id):
+    check_admin()
+    blog = Blog.get(id)
+    if not blog:
+        raise notfound()
+    delete_upload(blog.image)
+    blog.delete()
+    return "/"

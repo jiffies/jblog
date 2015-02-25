@@ -2,18 +2,18 @@
 <html>
     <head>
     <meta charset="utf-8"/>
-    <link rel="stylesheet" href="../static/css/jblog.css">
+    <link rel="stylesheet" href="/static/css/jblog.css">
     <title>Jiffies's Blog</title>
-    <script src="../static/js/jquery-2.1.3.min.js"></script>
-    <script src="../static/js/imagesloaded.pkgd.min.js"></script>
-    <script src="../static/js/masonry.pkgd.min.js"></script>
-    <script src="../static/js/jblog.js"></script>
+    <script src="/static/js/jquery-2.1.3.min.js"></script>
+    <script src="/static/js/imagesloaded.pkgd.min.js"></script>
+    <script src="/static/js/masonry.pkgd.min.js"></script>
+    <script src="/static/js/jblog.js"></script>
     </head>
     <body>
         <div id="sidebar">
         <aside class="oi">
             <div id="logo">
-                <a href="/"><img src="../static/img/z.png"> </img></a>
+                <a href="/"><img src="/static/img/z.png"> </img></a>
             </div>
             <h3 id="logo-sub">jiffies'Blog</h3>
             <hr></hr>
@@ -56,7 +56,13 @@
             <p><a href="/signin">Login</a></p>
             {% endif %}
             </li>
-                <li><p><a href="/manage/add_blog">Manage</a></p></li>
+                <li><p><a href="/manage/add_blog">Add</a></p></li>
+                {% if blog and user %}
+                <li><p><a class="a_post" href="/manage/delete/{{blog.id}}">Delete</a></p></li>
+                {% endif %}
+                {% if blog and user %}
+                <li><p><a href="/manage/edit/{{blog.id}}">Edit</a></p></li>
+                {% endif %}
             </ul>
         </div>
         <footer id="footer">

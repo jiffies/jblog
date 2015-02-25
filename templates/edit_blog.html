@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block content %}
+<form method="post" action="/manage/edit/{{blog.id}}" enctype="multipart/form-data">
+            <label for="title">标题</label>
+            <input type="text" name="title" value="{{blog.title}}"/></br>
+            <label for="content" >正文</label>
+            <textarea name="content" >{{blog.content}}</textarea>
+            <label for="image">上传图片</label>
+            <input type="file" name="image"/>
+            <input type="submit" name="提交修改"></input>
+        </form>
+{% endblock %}
