@@ -106,7 +106,6 @@ text-align:center;
     opacity: 0.15;
 }
         #logo img{
-            width:100%;
             margin:0 auto;
             display:block;
         }
@@ -183,15 +182,17 @@ text-align:center;
 
         nav li a{
             color:white;
+            font-size:1.5em;
         }
         nav li a:hover{
-            font-size:2.0em;
+            font-size:2.5em;
             color:white;
         }
         .hr{
             background: url(static/img/hr-bg.png) repeat-x scroll 0 0 transparent;
             height: 1px;
             margin-bottom: 6px;
+            border-bottom: 1px dashed grey;
         }
         #post-text{
             float:left;
@@ -199,6 +200,25 @@ text-align:center;
         }
         #post-text img{
             width:100%;
+        }
+        #post-text h1{
+            text-align: center;
+            margin-bottom: 10px;
+            color: #161616;
+            font-size: 29px;
+            text-transform: uppercase;
+            font-family: "Oswald" , Arial;
+            letter-spacing: 0.1px;
+        }
+        #post-text h3{
+            text-align: right;
+            color: #8B8B8B;
+            font-size: 13px;
+            text-transform: uppercase;
+            font-family: 'Oswald' , Arial;
+        }
+        #post-content{
+            margin-top:30px;
         }
         #info-panel{
             float:right;
@@ -219,3 +239,12 @@ text-align:center;
     display:block;
     clear:both;
 }
+    #fleft .footer-text{
+        /*margin-right: 5%;*/
+        /*float: right;*/
+        text-align:center;
+    }
+    #fright .footer-text{
+        margin-right: 5%;
+        float: right;
+    } 
