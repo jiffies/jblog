@@ -201,7 +201,7 @@ text-align:center;
         #post-text img{
             width:100%;
         }
-        #post-text h1{
+        .post-title{
             text-align: center;
             margin-bottom: 10px;
             color: #161616;
@@ -210,7 +210,7 @@ text-align:center;
             font-family: "Oswald" , Arial;
             letter-spacing: 0.1px;
         }
-        #post-text h3{
+        .created_time{
             text-align: right;
             color: #8B8B8B;
             font-size: 13px;
@@ -248,3 +248,11 @@ text-align:center;
         margin-right: 5%;
         float: right;
     } 
+    .title{
+        color: #222;
+        font-size: 19px;
+        text-transform: uppercase;
+        font-family: 'Oswald', 'sans-serif', Arial, Verdana;
+        letter-spacing: 0.1px;
+        text-align:center;
+    }

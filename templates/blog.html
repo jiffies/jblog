@@ -2,8 +2,8 @@
 {% block content %}
         <div id="front">
             <div id="post-text">
-            <h1>{{blog.title}}</h1>
-            <h3>{{blog.created_at}}</h3>
+            <h1 class="post-title">{{blog.title}}</h1>
+            <h3 class="created_time">{{blog.created_at|datetime}}</h3>
             <div class="hr"></div>
             <img src="{{blog.image}}"></img>
             <div id="post-content">{{blog.content|safe}}</div>
