@@ -28,7 +28,7 @@ $(document).ready(function(){
 $(window).resize(function(){
     var fleftHeight = $('#fleft').height();
     $('#fright').css('height',fleftHeight);
-    $('.footer-text').css('line-height',fleftHeight);
+    $('.footer-text').css('line-height',fleftHeight.toString()+'px');
 });
 $("#container").imagesLoaded().always(function(){
             var container = document.querySelector('#container-inner');
