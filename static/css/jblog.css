@@ -197,9 +197,13 @@ text-align:center;
         #post-text{
             float:left;
             width:68%;
+            /*margin-bottom:35px;*/
         }
         #post-text img{
             width:100%;
+        }
+        #post-text .hr:last-child{
+            margin-top:35px;
         }
         .post-title{
             text-align: center;
