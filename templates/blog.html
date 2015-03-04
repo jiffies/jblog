@@ -11,8 +11,12 @@
             </div>
             <div id="info-panel">
                 <h3>TAGS</h3>
+                {% for tag in tags %}
+                <p>{{tag.name}}</p>
+                {% endfor %}
             </div>
             <!-- UY BEGIN -->
+            <div class="clearfix"></div>
             <script type="text/javascript">
                 var uyan_config = {
                     'du':'code4awesome.sinaapp.com'

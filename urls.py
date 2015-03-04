@@ -4,7 +4,8 @@ from urlparse import urlparse
 import config
 import hashlib,uuid
 from framework.db import with_connection
-from models import User,Blog
+from models import User,Blog,Tag,BlogTag
+from models import *
 from framework.web import get, post, ctx, view, interceptor, seeother, notfound
 from framework.apis import api, Page, APIError, APIValueError, APIPermissionError, APIResourceNotFoundError
 import os.path
@@ -12,6 +13,7 @@ import os, re, time, base64, hashlib, logging
 from config import configs
 import sae.storage
 import markdown2
+from framework import db
 _COOKIE_NAME = 'jblog'
 _COOKIE_KEY = configs.session.secret
 CHUNKSIZE = 8192
@@ -134,6 +136,24 @@ def delete_upload(filename):
             os.remove(filename)
     logging.info("remove file %s." % filename)
 
+def add_tags(blog_id,tags):
+    if not tags:
+        return
+    if not tags[0]:
+        return
+    for tag in tags:
+        t=Tag.find_by('where name=?',tag)
+        if t:
+            t = t[0]
+        if not t:
+            t = Tag(name=tag)
+            t.insert()
+        bt = BlogTag(blog_id=blog_id,tag_id=t.id)
+        bt.insert()
+        logging.info("######add tag %s----%s" % (blog_id,tag))
+
+
+
 @post('/api/blogs')
 def api_create_blog():
     check_admin()
@@ -142,6 +162,7 @@ def api_create_blog():
     title = i.title.strip()
     content = i.content.strip()
     image = i.image
+    tags = i.tags.strip()
     logging.info("upload image name:%s,type:%s" % (image.filename,type(image.filename)))
     if not title:
         raise APIValueError('name', 'name cannot be empty.')
@@ -153,7 +174,8 @@ def api_create_blog():
     user = ctx.request.user
     blog = Blog(user_id=user.id,  title=title,  content=content,image=filename)
     blog.insert()
-    raise seeother('/')
+    add_tags(blog.id,tags.split(' '))
+    raise seeother('/blog/%s' % blog.id)
     return blog
 
 @view("add_blog.html")
@@ -178,7 +200,8 @@ def blog(id):
     if 'SERVER_SOFTWARE' not in os.environ:
         blog.image = '/'+blog.image
     if blog:
-        return dict(blog=blog,user=ctx.request.user)
+        tags = get_tags_from_blog(blog)
+        return dict(blog=blog,user=ctx.request.user,tags=tags)
     raise notfound()
 
 @view("edit_blog.html")
@@ -187,7 +210,24 @@ def edit_blog(id):
     blog = Blog.get(id)
     if not blog:
         raise notfound()
-    return dict(blog=blog,user=ctx.request.user)
+    tags = get_tags_from_blog(blog)
+    return dict(blog=blog,user=ctx.request.user,tags=tags)
+
+    
+def update_tags(blog,tag_checkbox,tags):
+    origin = get_tags_from_blog(blog)
+    origin_ids = [tag.id for tag in origin]
+    origin_names = [tag.name for tag in origin]
+
+    #remove用的id
+    remove = list(set(origin_ids).difference(set(tag_checkbox)))
+    remove_blogtag(blog,remove)
+    #add用的name
+    if tags and tags[0]:
+        add = list(set(tags).difference(set(origin_names)))
+        add_tags(blog.id,add)
+
+    
 
 @post('/manage/edit/:id')
 def api_edit_blog(id):
@@ -197,6 +237,13 @@ def api_edit_blog(id):
     title = i.title.strip()
     content = i.content.strip()
     image = i.image
+    tags = i.tags
+    try:
+        tag_checkbox = ctx.request.gets('tag_checkbox')
+    except KeyError:
+        tag_checkbox = []
+    logging.info("##################")
+    logging.info(tag_checkbox)
     if not title:
         raise APIValueError('name', 'name cannot be empty.')
     if not content:
@@ -211,6 +258,7 @@ def api_edit_blog(id):
         filename = upload(image)
         blog.image = filename
     blog.update()
+    update_tags(blog,tag_checkbox,tags.split(' '))
     raise seeother('/blog/%s' % blog.id)
 
 @post('/manage/delete/:id')

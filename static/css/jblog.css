@@ -264,3 +264,6 @@ text-align:center;
         letter-spacing: 0.1px;
         text-align:center;
     }
+    .clearfix{
+        clear:both;
+    }

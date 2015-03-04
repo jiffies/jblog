@@ -26,3 +26,18 @@ create table `blogs` (
   `created_at` real not null,
   primary key(`id`)
 ) engine=innodb default charset=utf8;
+
+-- generating SQL for tags:
+create table `tags` (
+  `id` varchar(50) not null,
+    `name` varchar(50) not null,
+  primary key(`id`)
+  )default charset=utf8;
+
+-- generating SQL for blogtag:
+create table `blogtag` (
+  `id` varchar(50) not null,
+    `blog_id` varchar(50) not null,
+  `tag_id` varchar(50) not null,
+    primary key(`id`)
+)default charset=utf8;
