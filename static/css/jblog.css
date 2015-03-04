@@ -1,3 +1,6 @@
+h1,h2,h3,h4,h5,p,span{
+    overflow:hidden;
+}
             body,h1,h2,h3,h4,h5,ul,li,a,p,span,img,dd{margin:0;padding:0;list-style:none;text-decoration:none;border:none;outline:none;vertical-align:baseline;}
 h1, h2, h3, h4, h5, h6 {
     font-weight: normal;
@@ -106,6 +109,7 @@ text-align:center;
     opacity: 0.15;
 }
         #logo img{
+            width:100%;
             margin:0 auto;
             display:block;
         }
@@ -140,7 +144,7 @@ text-align:center;
             width:40%;
         }
         .tag p{
-            font-size: 16px;
+            font-size: 0.9em;
             color: #FFF;
             text-decoration: none;
             text-transform: uppercase;
