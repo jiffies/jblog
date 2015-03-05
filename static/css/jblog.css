@@ -227,6 +227,7 @@ text-align:center;
         }
         #post-content{
             margin-top:30px;
+            line-height:2em;
         }
         #info-panel{
             float:right;
@@ -235,10 +236,11 @@ text-align:center;
         #info-panel h3:first-child{
             margin-bottom:25px;
         }
-        #info-panel span{
+        .tags{
             background:#459E63;
             color:white;
             padding:3%;
+            display:inline-block;
         }
         #front{
             width:90%;
@@ -274,4 +276,8 @@ text-align:center;
     }
     .clearfix{
         clear:both;
+    }
+    #tag_cloud{
+        width:100%;
+        height:400px;
     }

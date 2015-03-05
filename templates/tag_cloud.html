@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block head %}
+    <link rel="stylesheet" type="text/css" href="/static/css/jqcloud.css" />
+    <script type="text/javascript" src="/static/js/jqcloud-1.0.4.min.js"></script>
+    <script type="text/javascript">
+        var word_array = [
+            {% for tag in tags %}
+{text:"{{tag.name}}",weight:{{tag.number}},link:"/tag/{{tag.id}}"},
+            {% endfor %}
+        ];
+$(function(){
+        $('#tag_cloud').jQCloud(word_array);
+        });
+    </script>
+{% endblock %}
+{% block content %}
+    <div id="front">
+        <div id="tag_cloud" ></div>
+    </div>
+{% endblock %}

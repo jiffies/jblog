@@ -1,4 +1,18 @@
 {% extends "base.html" %}
+{% block head %}
+    <link rel="stylesheet" type="text/css" href="/static/css/jqcloud.css" />
+    <script type="text/javascript" src="/static/js/jqcloud-1.0.4.min.js"></script>
+    <script type="text/javascript">
+        var word_array = [
+            {% for tag in tags %}
+{text:"{{tag.name}}",weight:{{tag.number}},link:"/tag/{{tag.id}}"},
+            {% endfor %}
+        ];
+$(function(){
+        $('#tag_cloud').jQCloud(word_array);
+        });
+    </script>
+{% endblock %}
 {% block content %}
         <div id="front">
             <div id="post-text">
@@ -11,9 +25,10 @@
             </div>
             <div id="info-panel">
                 <h3>TAGS:</h3>
-                {% for tag in tags %}
-                <a href="/tag/{{tag.id}}"><span>{{tag.name}}</span></a>
+                {% for tag in blog.tags %}
+                <a href="/tag/{{tag.id}}"><span class="tags">{{tag.name}}</span></a>
                 {% endfor %}
+                <div id="tag_cloud" ></div>
             </div>
             <!-- UY BEGIN -->
             <div class="clearfix"></div>

@@ -3,7 +3,7 @@
 
 import time,uuid
 from framework.db import next_id
-from framework.orm import Model,StringField,BooleanField,FloatField,TextField
+from framework.orm import Model,StringField,BooleanField,FloatField,TextField,IntegerField
 from framework import db
 import logging
 
@@ -30,6 +30,7 @@ class Tag(Model):
     __table__ = 'tags'
     id = StringField(primary_key=True,default=next_id,ddl='varchar(50)')
     name = StringField(ddl='varchar(50)')
+    number = IntegerField(default=0)
 
 class BlogTag(Model):
     __table__ = 'blogtag'
@@ -47,11 +48,8 @@ def get_blogs_from_tag(tag):
             blogs,blogtag where blogs.id=blogtag.blog_id and blogtag.tag_id="%s"' % tag.id)
     return blogs
 
-def remove_blogtag(blog,remove):
-    if not remove:
-        return
-    remove_string = "','".join(remove)
-    s='delete from blogtag where blogtag.blog_id="%s" and blogtag.tag_id in (\'%s\')' % (blog.id,remove_string)
-    logging.info('#########')
-    logging.info(s)
-    db.update(s)
+
+
+def all_tags():
+    tags = Tag.find_all()
+    return tags

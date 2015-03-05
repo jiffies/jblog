@@ -31,9 +31,9 @@ create table `blogs` (
 create table `tags` (
   `id` varchar(50) not null,
     `name` varchar(50) not null,
+  `number` bigint not null,
   primary key(`id`)
   )default charset=utf8;
-
 -- generating SQL for blogtag:
 create table `blogtag` (
   `id` varchar(50) not null,

@@ -14,16 +14,38 @@ from config import configs
 import sae.storage
 import markdown2
 from framework import db
+import random
 _COOKIE_NAME = 'jblog'
 _COOKIE_KEY = configs.session.secret
 CHUNKSIZE = 8192
 UPLOAD_PATH='upload'
 SAE_BUCKET = 'code4awesome'
 
+def tag_count_add(tag):
+    tag.number+=1
+    tag.update()
+
+def tag_count_min(tag):
+    tag.number-=1
+    tag.update()
+
+def get_blog_head(content):
+    length = len(content)
+    if length > 50:
+        length = length / 5
+        return content[:length]+'\n\n...\n\n'
+    else:
+        return content
+
 def render_blogs(blogs):
+    length = len(blogs)
+    main_blogs = random.sample(blogs,length/2)
     for blog in blogs:
+        if blog in main_blogs:
+            blog.main = True
         if 'SERVER_SOFTWARE' not in os.environ:
             blog.image = '/'+blog.image
+        blog.content = get_blog_head(blog.content) 
         blog.content = markdown2.markdown(blog.content)
         tags = get_tags_from_blog(blog)
         if tags:
@@ -168,6 +190,7 @@ def add_tags(blog_id,tags):
             t = Tag(name=tag)
             t.insert()
         bt = BlogTag(blog_id=blog_id,tag_id=t.id)
+        tag_count_add(t)
         bt.insert()
         logging.info("######add tag %s----%s" % (blog_id,tag))
 
@@ -220,6 +243,8 @@ def blog(id):
         blog.image = '/'+blog.image
     if blog:
         tags = get_tags_from_blog(blog)
+        blog.tags = tags
+        tags = all_tags()
         return dict(blog=blog,user=ctx.request.user,tags=tags)
     raise notfound()
 
@@ -231,6 +256,18 @@ def edit_blog(id):
         raise notfound()
     tags = get_tags_from_blog(blog)
     return dict(blog=blog,user=ctx.request.user,tags=tags)
+
+def remove_blogtag(blog,remove):
+    if not remove:
+        return
+    remove_string = "','".join(remove)
+    s='delete from blogtag where blogtag.blog_id="%s" and blogtag.tag_id in (\'%s\')' % (blog.id,remove_string)
+    logging.info('#########')
+    logging.info(s)
+    db.update(s)
+    for tag_id in remove:
+        tag = Tag.get(tag_id)
+        tag_count_min(tag)
 
     
 def update_tags(blog,tag_checkbox,tags):
@@ -289,3 +326,15 @@ def delete_blog(id):
     delete_upload(blog.image)
     blog.delete()
     return "/"
+
+@view('tag_cloud.html')
+@get('/tagcloud')
+def tag_cloud():
+    tags = all_tags()
+    user = ctx.request.user
+    return dict(user=user,tags=tags)
+    
+
+
+
+
