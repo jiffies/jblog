@@ -19,19 +19,38 @@ _COOKIE_KEY = configs.session.secret
 CHUNKSIZE = 8192
 UPLOAD_PATH='upload'
 SAE_BUCKET = 'code4awesome'
+
+def render_blogs(blogs):
+    for blog in blogs:
+        if 'SERVER_SOFTWARE' not in os.environ:
+            blog.image = '/'+blog.image
+        blog.content = markdown2.markdown(blog.content)
+        tags = get_tags_from_blog(blog)
+        if tags:
+            blog.tag = tags[0]
+        else:
+            blog.tag = Tag(name=u"未分类")
+    return blogs
+
+
 @view('content.html')
 @get('/')
 def all_blogs():
     blogs = Blog.find_all()
-    for blog in blogs:
-        blog.content = markdown2.markdown(blog.content)
-    main = blogs[0]
-    sub = blogs[1:]
-    #if not config.SAE:
-        #for blog in sub:
-            #os.path.join('..',blog.image)
+    blogs = render_blogs(blogs)
     user = ctx.request.user
-    return dict(main=main,sub=sub,user=user)
+    return dict(blogs=blogs,user=user)
+
+@view('content.html')
+@get('/tag/:tag_id')
+def tag_blogs(tag_id):
+    tag = Tag.get(tag_id)
+    if not tag:
+        raise notfound()
+    blogs = get_blogs_from_tag(tag)
+    blogs = render_blogs(blogs)
+    user = ctx.request.user
+    return dict(blogs=blogs,user=user)
 
 @view('signin.html')
 @get('/signin')

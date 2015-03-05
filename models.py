@@ -42,6 +42,11 @@ def get_tags_from_blog(blog):
     tags = db.select('select tags.id,tags.name from tags,blogtag where tags.id=blogtag.tag_id and blogtag.blog_id="%s"' % blog.id)
     return tags
 
+def get_blogs_from_tag(tag):
+    blogs = db.select('select blogs.id,blogs.title,blogs.content,blogs.image,blogs.created_at from \
+            blogs,blogtag where blogs.id=blogtag.blog_id and blogtag.tag_id="%s"' % tag.id)
+    return blogs
+
 def remove_blogtag(blog,remove):
     if not remove:
         return

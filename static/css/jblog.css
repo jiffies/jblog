@@ -83,7 +83,7 @@ margin-bottom: 10px;
 text-transform: uppercase;
             }
             h3#logo-sub{
-color: #F9EFB7;
+color: white;
 font-size: 1.1em;
 line-height: 140%;
 margin: 10px 0px 10px 0px;
@@ -231,6 +231,14 @@ text-align:center;
         #info-panel{
             float:right;
             width:29%;
+        }
+        #info-panel h3:first-child{
+            margin-bottom:25px;
+        }
+        #info-panel span{
+            background:#459E63;
+            color:white;
+            padding:3%;
         }
         #front{
             width:90%;

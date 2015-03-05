@@ -10,9 +10,9 @@
             <div class="hr"></div>
             </div>
             <div id="info-panel">
-                <h3>TAGS</h3>
+                <h3>TAGS:</h3>
                 {% for tag in tags %}
-                <p>{{tag.name}}</p>
+                <a href="/tag/{{tag.id}}"><span>{{tag.name}}</span></a>
                 {% endfor %}
             </div>
             <!-- UY BEGIN -->

@@ -1,23 +1,15 @@
 {% extends "base.html" %}
 {% block content %}
             <div id="container-inner">
+            {% for blog in blogs %}
+            {% if blog.main %}
             <div class="main article">
-                <div class="oi-sub">
-                <div class="tag">
-                    <p>BUSINESS</p>
-                </div>
-                <a href="/blog/{{main.id}}">
-                <img src="{{main.image}}"></img>
-                <p class="title">{{main.title}}</p>
-                </a>
-                <div class="content">{{main.content | safe}}</div>
-                </div>
-            </div>
-            {% for blog in sub %}
+            {% else %}
             <div class="sub article">
+            {% endif %}
                 <div class="oi-sub">
                 <div class="tag">
-                    <p>BUSINESS</p>
+                    <a href="/tag/{{blog.tag.id}}"><p>{{blog.tag.name}}</p></a>
                 </div>
                 <a href="/blog/{{blog.id}}">
                 <img src="{{blog.image}}"></img>
