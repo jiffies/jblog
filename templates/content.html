@@ -2,7 +2,7 @@
 {% block content %}
             <div id="container-inner">
             {% for blog in blogs %}
-            {% if blog.main %}
+            {% if loop.index == 1 and blogs|length > 1%}
             <div class="main article">
             {% else %}
             <div class="sub article">

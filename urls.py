@@ -38,11 +38,11 @@ def get_blog_head(content):
         return content
 
 def render_blogs(blogs):
-    length = len(blogs)
-    main_blogs = random.sample(blogs,length/2)
+    #length = len(blogs)
+    #main_blogs = random.sample(blogs,length/2)
     for blog in blogs:
-        if blog in main_blogs:
-            blog.main = True
+        #if blog in main_blogs:
+            #blog.main = True
         if 'SERVER_SOFTWARE' not in os.environ:
             blog.image = '/'+blog.image
         blog.content = get_blog_head(blog.content) 
