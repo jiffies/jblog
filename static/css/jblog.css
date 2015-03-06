@@ -1,13 +1,13 @@
 h1,h2,h3,h4,h5,p,span{
     overflow:hidden;
 }
-            body,h1,h2,h3,h4,h5,ul,li,a,p,span,img,dd{margin:0;padding:0;list-style:none;text-decoration:none;border:none;outline:none;vertical-align:baseline;}
-h1, h2, h3, h4, h5, h6 {
-    font-weight: normal;
-    letter-spacing: -1px;
-    line-height: 1em;
-    padding-bottom: 5px;
-}
+            body,h1,h2,h3,h4,h5,ul,li,a,p,span,img,dd{margin:0;padding:0;text-decoration:none;border:none;outline:none;vertical-align:baseline;}
+            ul{
+                list-style:none;
+            }
+            a:hover{
+                text-decoration:none;
+            }
 html,body{
     height:100%;
 }
@@ -262,7 +262,9 @@ text-align:center;
         /*margin-right: 5%;*/
         /*float: right;*/
         text-align:center;
-        display:inline-block;
+        position:absolute;
+        left:0px;
+        right:0px;
     }
     #fright .footer-text{
         margin-right: 5%;
