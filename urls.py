@@ -260,6 +260,7 @@ def edit_blog(id):
     tags = get_tags_from_blog(blog)
     return dict(blog=blog,user=ctx.request.user,tags=tags)
 
+#delete one blog's some blogtag relationship.
 def remove_blogtag(blog,remove):
     if not remove:
         return
@@ -326,6 +327,9 @@ def delete_blog(id):
     blog = Blog.get(id)
     if not blog:
         raise notfound()
+    tags = get_tags_from_blog(blog)
+    remove = [tag.id for tag in tags]
+    remove_blogtag(blog,remove)
     delete_upload(blog.image)
     blog.delete()
     return "/"
