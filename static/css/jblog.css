@@ -118,6 +118,7 @@ text-align:center;
         }
         .main{
             width:66.67%;
+            border-bottom: 1px solid #F5F1E4;
         }
         .main img{
             width:100%;

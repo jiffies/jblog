@@ -27,7 +27,10 @@ def tag_count_add(tag):
 
 def tag_count_min(tag):
     tag.number-=1
-    tag.update()
+    if tag.number == 0:
+        tag.delete()
+    else:
+        tag.update()
 
 def get_blog_head(content):
     length = len(content)
