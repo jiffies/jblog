@@ -21,21 +21,36 @@
             <hr></hr>
             <nav>
                 <ul>
-                    <li><a href="/tagcloud">标签云</a></li>
                     <li><a href="/">博客</a></a></li>
-                    <li><a href="/">照片</a></li>
+                    <li><a href="/tagcloud">标签云</a></li>
                     <li><a href="/">关于</a></li>
                 </ul>
             </nav>
             <hr></hr>
-            <div id="search-form">
-                <form>
-                    <input type="text" id="search-input">
-                </form>
-            </div>
-            <ul id="social-icons"></ul>
+            <!--<div id="search-form">-->
+                <!--<form>-->
+                    <!--<input type="text" id="search-input" value="搜索">-->
+                    <!--<input type="image" src="/static/img/search-btn.png">-->
+                <!--</form>-->
+            <!--</div>-->
 
         </aside>
+        <footer id="footer">
+            <!--<div class="oi-footer">-->
+            <ul id="social-icons">
+                <li><a target="_blank" href="https://github.com/jiffies"><img src="/static/img/github.png"></img></a></li>
+                <li><a target="_blank" href="http://weibo.com/2068794623"><img src="/static/img/weibo.png"></img></a></li>
+                <!--<li><a target="_blank" href=""><img src="/static/img/mail.png"></img></a></li>-->
+            </ul>
+                <div id="fleft">
+                    <div class="f-oi">
+                        <p class="footer-text">ALL RIGHTS RESERVED 2015<p>
+                    </div>
+                </div>
+
+
+            <!--</div>-->
+        </footer>
         </div>
         <div id="container">
             <div id="inner">
@@ -67,16 +82,5 @@
                 {% endif %}
             </ul>
         </div>
-        <footer id="footer">
-            <!--<div class="oi-footer">-->
-                <div id="fleft">
-                    <div class="f-oi">
-                        <p class="footer-text">ALL RIGHTS RESERVED 2015<p>
-                    </div>
-                </div>
-
-
-            <!--</div>-->
-        </footer>
     </body>
 </html>
