@@ -81,6 +81,8 @@ def tag_blogs(tag_id):
 @get('/signin')
 def signin():
     user = ctx.request.user
+    referer_url = ctx.request.header('Referer')
+    ctx.response.set_cookie('referer_url',referer_url)
     return dict(user=user)
 
 
@@ -106,7 +108,8 @@ def authenticate():
     cookie = make_signed_cookie(user.id, user.password, max_age)
     ctx.response.set_cookie(_COOKIE_NAME, cookie, max_age=max_age)
     user.password = '******'
-    raise seeother('/')
+    referer_url = ctx.request.cookie('referer_url')
+    raise seeother(referer_url)
     return user
 
 
