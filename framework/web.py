@@ -1520,7 +1520,8 @@ class WSGIApplication(object):
                 logging.exception(e)
                 if not debug:
                     start_response('500 Internal Server Error', [])
-                    return ['<html><body><h1>500 Internal Server Error</h1></body></html>']
+                    r = self._template_engine('error.html', {'error':e})
+                    return r
                 exc_type, exc_value, exc_traceback = sys.exc_info()
                 fp = StringIO()
                 traceback.print_exception(exc_type, exc_value, exc_traceback, file=fp)

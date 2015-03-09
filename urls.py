@@ -215,13 +215,14 @@ def api_create_blog():
         #raise APIValueError('summary', 'summary cannot be empty.')
     if not content:
         raise APIValueError('content', 'content cannot be empty.')
+    if not image:
+        raise APIValueError('image', 'image cannot be empty.')
     filename = upload(image)
     user = ctx.request.user
     blog = Blog(user_id=user.id,  title=title,  content=content,image=filename)
     blog.insert()
     add_tags(blog.id,tags.split(' '))
     raise seeother('/blog/%s' % blog.id)
-    return blog
 
 @view("add_blog.html")
 @get('/manage/add_blog')
