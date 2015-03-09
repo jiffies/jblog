@@ -81,8 +81,6 @@ def tag_blogs(tag_id):
 @get('/signin')
 def signin():
     user = ctx.request.user
-    referer_url = ctx.request.header('Referer')
-    ctx.response.set_cookie('referer_url',referer_url)
     return dict(user=user)
 
 
@@ -108,9 +106,8 @@ def authenticate():
     cookie = make_signed_cookie(user.id, user.password, max_age)
     ctx.response.set_cookie(_COOKIE_NAME, cookie, max_age=max_age)
     user.password = '******'
-    referer_url = ctx.request.cookie('referer_url')
-    raise seeother(referer_url)
-    return user
+    back_last_page(2)
+
 
 
 def parse_signed_cookie(cookie_str):
@@ -232,6 +229,39 @@ def add_blog():
     user = ctx.request.user
     return dict(user=user)
 
+@interceptor('/')
+def remember_last_page_interceptor(next):
+    if ctx.request.path_info.startswith('/static') or ctx.request.path_info.startswith('/upload'):
+        return next()
+    referer_url = ctx.request.path_info
+    remembered = ctx.request.cookie('referer_url')
+    if remembered:
+        array = remembered.split(',')
+        if len(array) > 15:
+            array = array[:15]
+        remembered = ','.join(array)
+    logging.info("#############@@@@@@@2")
+    logging.info('remembered=%s, referer_url=%s ' % (remembered,referer_url))
+    if referer_url:
+        if remembered:
+            ctx.response.set_cookie('referer_url',','.join([referer_url,remembered]))
+        else:
+            ctx.response.set_cookie('referer_url',referer_url)
+    return next()
+
+def back_last_page(back_index):
+    referer_url = ctx.request.cookie('referer_url')
+    logging.info('##############%s ' % referer_url)
+    ctx.response.delete_cookie('referer_url')
+    if referer_url:
+        try:
+            url=referer_url.split(',')[back_index-1]
+        except IndexError:
+            raise seeother('/')
+        logging.info('##############%s ' % url)
+        raise seeother(url)
+    else:
+        raise seeother('/')
 
 @interceptor('/manage/')
 def manage_interceptor(next):
@@ -244,15 +274,15 @@ def manage_interceptor(next):
 @get('/blog/:id')
 def blog(id):
     blog = Blog.get(id)
+    if not blog:
+        raise notfound()
     blog.content = markdown2.markdown(blog.content)
     if 'SERVER_SOFTWARE' not in os.environ:
         blog.image = '/'+blog.image
-    if blog:
-        tags = get_tags_from_blog(blog)
-        blog.tags = tags
-        tags = all_tags()
-        return dict(blog=blog,user=ctx.request.user,tags=tags)
-    raise notfound()
+    tags = get_tags_from_blog(blog)
+    blog.tags = tags
+    tags = all_tags()
+    return dict(blog=blog,user=ctx.request.user,tags=tags)
 
 @view("edit_blog.html")
 @get('/manage/edit/:id')

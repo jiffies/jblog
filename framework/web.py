@@ -1512,7 +1512,10 @@ class WSGIApplication(object):
                 return []
             except HttpError, e:
                 start_response(e.status, response.headers)
-                return ['<html><body><h1>', e.status, '</h1></body></html>']
+                if e.status.startswith('404'):
+                    return ['<html><head></head><body><h1>', e.status, '</h1><script type="text/javascript" src="http://www.qq.com/404/search_children.js" charset="utf-8"></script></body></html>']
+                else:
+                    return ['<html><body><h1>', e.status, '</h1></body></html>']
             except Exception, e:
                 logging.exception(e)
                 if not debug:
