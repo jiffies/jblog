@@ -208,7 +208,8 @@ def api_create_blog():
     content = i.content.strip()
     image = i.image
     tags = i.tags.strip()
-    logging.info("upload image name:%s,type:%s" % (image.filename,type(image.filename)))
+    if image:
+        logging.info("upload image name:%s,type:%s" % (image.filename,type(image.filename)))
     if not title:
         raise APIValueError('name', 'name cannot be empty.')
     #if not summary:
@@ -376,6 +377,11 @@ def tag_cloud():
     return dict(user=user,tags=tags)
     
 
-
+@view('about.html')
+@get('/about')
+def about():
+    user = ctx.request.user
+    return dict(user=user)
+    
 
 

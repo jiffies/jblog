@@ -157,6 +157,11 @@ text-align:center;
             padding:15px;
             overflow:hidden;
         }
+        .content ul{
+            list-style-position: inside;
+            list-style-type: disc;
+        }
+
         #manage{
             position:absolute;
             top:0;
@@ -229,6 +234,10 @@ text-align:center;
         #post-content{
             margin-top:30px;
             line-height:2em;
+        }
+        #post-content ul{
+            list-style-position: inside;
+            list-style-type: disc;
         }
         #info-panel{
             float:right;
