@@ -356,6 +356,7 @@ def api_edit_blog(id):
     update_tags(blog,tag_checkbox,tags.split(' '))
     raise seeother('/blog/%s' % blog.id)
 
+@api
 @post('/manage/delete/:id')
 def delete_blog(id):
     check_admin()
@@ -367,7 +368,7 @@ def delete_blog(id):
     remove_blogtag(blog,remove)
     delete_upload(blog.image)
     blog.delete()
-    return "/"
+    return {'data':'/'}
 
 @view('tag_cloud.html')
 @get('/tagcloud')

@@ -10,14 +10,20 @@ $(document).ready(function(){
         //$("#fright").css('display','none');
     //}
 //});
+    $('.button-submit').click(function(){
+        $('#container form').submit();
+    });
+
     $(".a_post").click(function(e){
         e.preventDefault();
         $.ajax({
-            url:$(this).attr('href'),
+            url:$(this).attr('data'),
             type:'POST',
             success:function(data,textstatus,jqXHR){
-                window.location.href = data;
-                window.location,reload();
+                var url = JSON.parse(data).data
+                console.log(url);
+                window.location.href = url;
+                //window.location.reload();
             },
             dataType:'text'
         });

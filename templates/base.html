@@ -67,6 +67,8 @@
         </div>
 
         <div id="manage">
+
+                            
             <ul>
                 <li>
             {% if user %}
@@ -77,12 +79,14 @@
             </li>
                 <li><p><a href="/manage/add_blog">Add</a></p></li>
                 {% if blog and user %}
-                <li><p><a class="a_post" href="/manage/delete/{{blog.id}}">Delete</a></p></li>
+                <li><p><a href="" data-toggle="modal" data-target="#confirm">Delete</a></p></li>
                 {% endif %}
                 {% if blog and user %}
                 <li><p><a href="/manage/edit/{{blog.id}}">Edit</a></p></li>
                 {% endif %}
             </ul>
         </div>
+        {% block confirm %}
+        {% endblock %}
     </body>
 </html>
