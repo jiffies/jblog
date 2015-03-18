@@ -71,7 +71,7 @@ html,body{
             }
             #search-form{
                 margin:7% 0 0 0;
-                background: url("/static/img/search-bg.png") repeat-x scroll 0% 0% transparent;
+                background: repeat-x scroll 0% 0% transparent;
             }
             nav li{
                 color: #FFF;
@@ -199,7 +199,7 @@ text-align:center;
             color:white;
         }
         .hr{
-            background: url(static/img/hr-bg.png) repeat-x scroll 0 0 transparent;
+            background: repeat-x scroll 0 0 transparent;
             height: 1px;
             margin-bottom: 6px;
             border-bottom: 1px dashed grey;

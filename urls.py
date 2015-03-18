@@ -62,6 +62,7 @@ def render_blogs(blogs):
 @get('/')
 def all_blogs():
     blogs = Blog.find_all()
+    blogs = sorted(blogs,key=lambda blog:blog.created_at,reverse=True)
     blogs = render_blogs(blogs)
     user = ctx.request.user
     return dict(blogs=blogs,user=user)
