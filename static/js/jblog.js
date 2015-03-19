@@ -29,10 +29,12 @@ $(document).ready(function(){
         });
     });
     var fleftHeight = $('#fleft').height();
+    $('#social-icons').css('top',-(fleftHeight+8));
     $('#fright').css('height',fleftHeight);
     $('.footer-text').css('line-height',fleftHeight.toString()+'px');
 $(window).resize(function(){
     var fleftHeight = $('#fleft').height();
+    $('#social-icons').css('top',-(fleftHeight+8));
     $('#fright').css('height',fleftHeight);
     $('.footer-text').css('line-height',fleftHeight.toString()+'px');
 });

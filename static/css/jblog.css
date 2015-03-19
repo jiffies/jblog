@@ -297,7 +297,6 @@ text-align:center;
     #social-icons {
         float: left;
         position: relative;
-        top: -40px;
         left: 9%;
     }
     #social-icons li{
@@ -310,4 +309,7 @@ text-align:center;
     #social-icons img{
         width:32px;
         height:32px;
+    }
+    #social-icons i{
+        color:#677572;
     }
