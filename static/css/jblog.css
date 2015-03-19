@@ -2,6 +2,54 @@ h1,h2,h3,h4,h5,p,span{
     overflow:hidden;
 }
             body,h1,h2,h3,h4,h5,ul,li,a,p,span,img,dd{margin:0;padding:0;text-decoration:none;border:none;outline:none;vertical-align:baseline;}
+.content h1{
+    margin-top:0.5em;
+    margin-bottom:0.5em;
+}
+.content h2{
+    margin-top:0.5em;
+    margin-bottom:0.5em;
+}
+.content h3{
+    margin-top:0.5em;
+    margin-bottom:0.5em;
+}
+.content h4{
+    margin-top:0.5em;
+    margin-bottom:0.5em;
+}
+.content h5{
+    margin-top:0.5em;
+    margin-bottom:0.5em;
+}
+.content p{
+    margin-top:0.5em;
+    margin-bottom:0.5em;
+}
+#post-content h1{
+    margin-top:0.5em;
+    margin-bottom:0.5em;
+}
+#post-content h2{
+    margin-top:0.5em;
+    margin-bottom:0.5em;
+}
+#post-content h3{
+    margin-top:0.5em;
+    margin-bottom:0.5em;
+}
+#post-content h4{
+    margin-top:0.5em;
+    margin-bottom:0.5em;
+}
+#post-content h5{
+    margin-top:0.5em;
+    margin-bottom:0.5em;
+}
+#post-content p{
+    margin-top:0.5em;
+    margin-bottom:0.5em;
+}
             ul{
                 list-style:none;
             }
