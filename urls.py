@@ -49,7 +49,7 @@ def render_blogs(blogs):
         if 'SERVER_SOFTWARE' not in os.environ:
             blog.image = '/'+blog.image
         blog.content = get_blog_head(blog.content) 
-        blog.content = markdown2.markdown(blog.content)
+        blog.content = markdown2.markdown(blog.content,extras=["code-friendly"])
         tags = get_tags_from_blog(blog)
         if tags:
             blog.tag = tags[0]
@@ -279,7 +279,7 @@ def blog(id):
     blog = Blog.get(id)
     if not blog:
         raise notfound()
-    blog.content = markdown2.markdown(blog.content)
+    blog.content = markdown2.markdown(blog.content,extras=["code-friendly"])
     if 'SERVER_SOFTWARE' not in os.environ:
         blog.image = '/'+blog.image
     tags = get_tags_from_blog(blog)
