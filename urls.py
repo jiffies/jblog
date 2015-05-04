@@ -19,7 +19,7 @@ _COOKIE_NAME = 'jblog'
 _COOKIE_KEY = configs.session.secret
 CHUNKSIZE = 8192
 UPLOAD_PATH='upload'
-SAE_BUCKET = 'code4awesome'
+SAE_BUCKET = configs.storage['bucket']
 
 def tag_count_add(tag):
     tag.number+=1
