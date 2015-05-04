@@ -13,6 +13,7 @@ Features:
 4. Sae上传功能。
 
 deploy on sae:
+
 1. Modify uyan review system's parameters which key name is review in config_default.py .
 2. Create storage service in SAE and rewrite your bucket name in config_default.py file.
 2. Create mysql service in SAE,then source sql script in jblog database.
