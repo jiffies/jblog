@@ -34,11 +34,11 @@ $(function(){
             <div class="clearfix"></div>
             <script type="text/javascript">
                 var uyan_config = {
-                    'du':'code4awesome.sinaapp.com'
+                    'du':'{{ review['domain'] }}'
                 };
             </script>
             <div id="uyan_frame"></div>
-            <script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=2011427"></script>
+            <script type="text/javascript" src="{{ review['url'] }}"></script>
             <!-- UY END -->
         </div>
 {% endblock%}
