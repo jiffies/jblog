@@ -25,6 +25,7 @@ class Blog(Model):
     content = TextField()
     image = StringField(ddl='varchar(500)')
     created_at = FloatField(updatable=False,default=time.time)
+    click = IntegerField()
 
 class Tag(Model):
     __table__ = 'tags'

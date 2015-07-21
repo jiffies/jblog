@@ -15,6 +15,12 @@ import sae.storage
 import markdown2
 from framework import db
 import random
+import sae.kvdb
+from sae.taskqueue import Task,TaskQueue
+
+kv = sae.kvdb.Client()
+counter_queue = TaskQueue('counter')
+
 _COOKIE_NAME = 'jblog'
 _COOKIE_KEY = configs.session.secret
 CHUNKSIZE = 8192
@@ -284,8 +290,22 @@ def blog(id):
         blog.image = '/'+blog.image
     tags = get_tags_from_blog(blog)
     blog.tags = tags
+    blog.click = kv.get(id)
+    if not blog.click:
+        kv.add(id,0)
+        blog.click = 0 
+    counter_queue.add(Task('/tasks/counter',"blog_id=%s" % id)) 
     tags = all_tags()
     return dict(blog=blog,user=ctx.request.user,tags=tags)
+
+@post('/tasks/counter')
+def counter():
+    i = ctx.request.input()
+    key = i.blog_id.encode('utf-8')
+    count = kv.get(key)
+    logging.info("blog %s count is %d.\n" % (i.blog_id,count))
+    kv.set(key,count+1)
+
 
 @view("edit_blog.html")
 @get('/manage/edit/:id')
