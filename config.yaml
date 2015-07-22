@@ -1,2 +1,7 @@
 name: code4awesome
 version: 1
+cron:
+- description: sync_click
+  url: /cron/sync-click
+  schedule: "*/20 * * * *"
+

@@ -305,6 +305,27 @@ def counter():
     count = kv.get(key)
     logging.info("blog %s count is %d.\n" % (i.blog_id,count))
     kv.set(key,count+1)
+    dirty = kv.get('dirty')
+    if not dirty:
+        kv.set('dirty','')
+        dirty = ''
+    kv.set('dirty',(dirty+' '+key).strip())
+
+@post('/tasks/sync-click')
+def tasks_sync_click():
+    keys = kv.get('dirty').split(' ')
+    keys = [k  for k in keys if k]
+    dirty = kv.get_multi(keys)
+    for k,v in dirty.iteritems():
+        print "key: %s,value: %d\n" % (k,v)
+        blog = Blog.get(k)
+        blog.click = v
+        blog.update()
+    kv.replace('dirty','')
+
+@get('/cron/sync-click')
+def cron_sync_click():
+    counter_queue.add(Task('/tasks/sync-click',"time=1min"))
 
 
 @view("edit_blog.html")
