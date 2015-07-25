@@ -16,6 +16,9 @@ deploy on sae:
 
 1. Modify uyan review system's parameters which key name is review in config_default.py .
 2. Create storage service in SAE and rewrite your bucket name in config_default.py file.
-2. Create mysql service in SAE,then source sql script in jblog database.
+3. Create mysql service in SAE,then source sql script in jblog database.
+4. Create kvdb service in SAE.
+5. Create sequential taskQueue service in SAE and rewrite your taskqueue name in config_default.py.
+
 
 

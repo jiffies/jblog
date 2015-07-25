@@ -4,4 +4,5 @@ cron:
 - description: sync_click
   url: /cron/sync-click
   schedule: "*/20 * * * *"
+  login: jiffies@jiffies
 

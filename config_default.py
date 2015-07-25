@@ -15,6 +15,7 @@ configs = {
         },
     'storage':{
         'bucket':'code4awesome'
-        }
+        },
+    'taskqueue':'counter'
         
 }

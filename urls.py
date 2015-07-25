@@ -6,7 +6,7 @@ import hashlib,uuid
 from framework.db import with_connection
 from models import User,Blog,Tag,BlogTag
 from models import *
-from framework.web import get, post, ctx, view, interceptor, seeother, notfound
+from framework.web import get, post, ctx, view, interceptor, seeother, notfound,unauthorized
 from framework.apis import api, Page, APIError, APIValueError, APIPermissionError, APIResourceNotFoundError
 import os.path
 import os, re, time, base64, hashlib, logging
@@ -17,9 +17,10 @@ from framework import db
 import random
 import sae.kvdb
 from sae.taskqueue import Task,TaskQueue
+import base64
 
 kv = sae.kvdb.Client()
-counter_queue = TaskQueue('counter')
+counter_queue = TaskQueue(configs.taskqueue)
 
 _COOKIE_NAME = 'jblog'
 _COOKIE_KEY = configs.session.secret
@@ -325,6 +326,13 @@ def tasks_sync_click():
 
 @get('/cron/sync-click')
 def cron_sync_click():
+    authorization = ctx.request.header('Authorization').split(' ')[1]
+    print "@@@@@@get basic: %s \n" % authorization
+    answer = base64.b64encode('jiffies:jiffies').decode('utf-8')
+    if authorization != answer:
+        raise unauthorized()
+
+
     counter_queue.add(Task('/tasks/sync-click',"time=1min"))
 
 
