@@ -17,6 +17,7 @@ create table `blogs` (
   `content` text not null,
   `image` varchar(500) not null,
   `created_at` real not null,
+  `click` bigint not null,
   primary key(`id`)
 )  charset=utf8;
 
