@@ -328,7 +328,7 @@ def tasks_sync_click():
 def cron_sync_click():
     authorization = ctx.request.header('Authorization').split(' ')[1]
     print "@@@@@@get basic: %s \n" % authorization
-    answer = base64.b64encode('jiffies:jiffies').decode('utf-8')
+    answer = base64.b64encode('jblog:jblog').decode('utf-8')
     if authorization != answer:
         raise unauthorized()
 
